@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasbih 📿</title>
+</head>
+<style>
+    body {
+        background-color: whitesmoke;
+        font-family: sans-serif;
+    }
+
+    .container {
+        width: auto;
+        height: auto;
+        border: 2px solid black;
+        margin: 2rem auto;
+        padding: 2rem;
+        flex-direction: column;
+        display: flex;
+        flex-shrink: 4;
+        flex-grow: 1;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .myb {
+        cursor: pointer;
+        background-color: rgb(208, 172, 255);
+        margin: 1rem;
+        border: none;
+        padding: 1rem;
+        text-align: center;
+        color: white;
+        font-weight: bold;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 30%;
+        flex-shrink: 2;
+    }
+
+    #myp {
+        background-color: rgb(255, 180, 83);
+        margin: 1rem;
+        padding: 1rem;
+        text-align: center;
+        color: rgb(36, 36, 36);
+        width: 30%;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    .custom {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .custom label {
+        margin: .2rem;
+        font-size: 1.1rem;
+        font-family: sans-serif;
+    }
+
+    .custom label input {
+        padding: 1rem;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <h1>Tasbih 📿</h1>
+        <button class="myb" id="myb">+</button>
+        <button class="myb" id="myBtn">-</button>
+        <button class="myb" id="reset">Reset</button>
+    </div>
+    <!-- <div class="custom">
+        <h2>Custom Tasbih 📿</h2>
+        <label for="target">Target:
+            <input type="number" name="" id="target">
+        </label>
+        <label for="zikr">Zikr:
+            <input type="text" name="" id="zikr">
+        </label>
+        <button id="setZikr" class="myb">Set Target</button>
+    </div> -->
+    <script>
+        let cont = document.querySelector('.container');
+        let todayZikr = document.querySelector('#todayZikr');
+        let count = 0;
+        let target;
+
+        if (target == null) {
+            target = 100;
+        }
+
+        const today = new Date();
+        let day;
+        let zikr = ``;
+
+        switch (today.getDay()) {
+            case 0:
+                day = "Sunday";
+                zikr = "یا حیی ہا قیوم";
+                break;
+            case 1:
+                day = "Monday";
+                zikr = "یا قاضی الحاجات";
+                break;
+            case 2:
+                day = "Tuesday";
+                zikr = "یا ارحم الرٰاحِمین";
+                break;
+            case 3:
+                day = "Wednesday";
+                zikr = "یا حیی ہا قیوم";
+                break;
+            case 4:
+                day = "Thursday";
+                zikr = "لا الہ الااللہ الملک الحق المبین";
+                break;
+            case 5:
+                day = "Friday";
+                zikr = "اللھم صل علی محمد وآل محمد";
+                break;
+            case 6:
+                day = "Saturday";
+                zikr = "یا رب العالمین";
+                break;
+        }
+
+        let appendDay = document.createElement('h2');
+        appendDay.setAttribute('id', 'appendDay');
+        appendDay.setAttribute('style', 'text-align: center;');
+        appendDay.innerHTML = `It's <span style="color: rgb(255, 180, 83);"> ${day}</span>.`;
+
+        cont.appendChild(appendDay);
+
+        let appendZikr = document.createElement('h3');
+        appendZikr.setAttribute('id', 'todayZikr');
+        appendZikr.setAttribute('style', 'text-align: center;');
+        appendZikr.innerHTML = `Say <span style="color: rgb(255, 180, 83);">${zikr}</span> 100 times today.`;
+
+        cont.appendChild(appendZikr);
+
+
+        let myP = document.createElement('p');
+        myP.setAttribute('id', 'myp');
+        myP.innerText = `Start by pressing '+' button below.`;
+
+        let myBtn = document.getElementById('myBtn');
+
+        let myB = document.getElementById('myb');
+
+        let reset = document.getElementById('reset');
+
+        cont.appendChild(myP);
+        cont.appendChild(myB);
+        cont.appendChild(myBtn);
+        cont.appendChild(reset);
+
+        let loop = 0;
+        let newCount;
+
+        myB.addEventListener('click', function () {
+            newCount = ++count;
+            myP.innerText = newCount + `, Target = ${target}`;
+            if (count >= target) {
+                count = 0;
+                ++loop;
+            }
+            myP.innerText = newCount + `, Target = ${target}` + `, Loop = ${loop}`;
+
+        })
+
+        myBtn.addEventListener('click', function () {
+            let negCount = --count;
+            myP.innerText = negCount + `, Target = ${target}` + `, Loop = ${loop}`;
+            if (count < 0) {
+                count = 0;
+                myP.innerText = `Nope. Can't go negative.`
+            }
+        })
+
+        reset.addEventListener('click', function () {
+            count = 0;
+            loop = 0;
+            myP.innerText = count;
+        })
+
+        console.log('ol roit');
+    </script>
+</body>
+<script src="test.js"></script>s
+
+</html>
